@@ -2,25 +2,44 @@
 
 internal class Program
 {
-    static RoboTupiniquim robo1 = new RoboTupiniquim();
-    static RoboTupiniquim robo2 = new RoboTupiniquim();
+    static RoboTupiniquim roboTup1 = new RoboTupiniquim();
+    static RoboTupiniquim roboTup2 = new RoboTupiniquim();
 
     static char[] sequenciaValidada = ['M', 'D', 'E'];
 
     static void Main(string[] args)
     {
-        GerarCoordenadaMaxima(robo1);
+        while (true)
+        {
+            ExibirMenu();
+            LancarRobosEmMarte(roboTup1, roboTup2);
 
-        GerarCoordenadaRobo(robo1);
-
-        if (robo1.ProcessarSequencia(GerarSequencia()))
-            Console.WriteLine($"{robo1.posicaoRobo[0]} {robo1.posicaoRobo[1]} {robo1.orientacaoRobo}");
-        else
-            Console.WriteLine("A sequência é inválida!");
-
-        Console.ReadLine();
+            if (JogarNovamente())
+                break;
+        }
     }
-    static void GerarCoordenadaMaxima(RoboTupiniquim robo)
+
+    static void LancarRobosEmMarte(RoboTupiniquim robo1, RoboTupiniquim robo2)
+    {
+        GerarCoordenadaMaxima(robo1, robo2);
+        GerarCoordenadaRobo(robo1, "Primeiro");
+        GerarCoordenadaRobo(robo2, "Segundo");
+
+        char[] sequencia1 = GerarSequencia("Primeiro");
+        char[] sequencia2 = GerarSequencia("Segundo");
+
+        if (robo1.ProcessarSequencia(sequencia1))
+            Console.WriteLine($"Posição final do primeiro Robô: {robo1.posicaoRobo[0]} {robo1.posicaoRobo[1]} {robo1.orientacaoRobo}");
+        else
+            Console.WriteLine("A sequência do primeiro Robô é inválida!");
+        
+        if (robo2.ProcessarSequencia(sequencia2))
+            Console.WriteLine($"Posição final do segundo Robô: {robo2.posicaoRobo[0]} {robo2.posicaoRobo[1]} {robo2.orientacaoRobo}");
+        else
+            Console.WriteLine("A sequência do segundo Robô é inválida!");
+    }
+
+    static void GerarCoordenadaMaxima(RoboTupiniquim robo1, RoboTupiniquim robo2)
     {
         string[] partesCoordenadas;
         while (true)
@@ -33,22 +52,24 @@ internal class Program
             else
                 break;
         }
+        Console.WriteLine();
 
         int[] coordenadasMax = new int[partesCoordenadas.Length];
 
         for (int i = 0; i < partesCoordenadas.Length; i++)
             coordenadasMax[i] = int.Parse(partesCoordenadas[i]);
 
-        robo.coordenadaMax = coordenadasMax;
+        robo1.coordenadaMax = coordenadasMax;
+        robo2.coordenadaMax = coordenadasMax;
     }
 
-    static void GerarCoordenadaRobo(RoboTupiniquim robo)
+    static void GerarCoordenadaRobo(RoboTupiniquim robo, string nome)
     {
         string[] posicaoInicial;
 
         while (true)
         {
-            Console.Write("Informe as coordenadas do robô e sua orientação: (Ex.: 1 3 N ou 3 4 S): ");
+            Console.Write($"Informe as coordenadas do {nome} Robô e sua orientação: (Ex.: 1 3 N ou 3 4 S): ");
             posicaoInicial = Console.ReadLine()!.Split();
 
             if (posicaoInicial.Length != 3 || !int.TryParse(posicaoInicial[0], out _) || !int.TryParse(posicaoInicial[1], out _))
@@ -56,19 +77,20 @@ internal class Program
             else
                 break;
         }
+        Console.WriteLine();
 
         robo.posicaoRobo = [int.Parse(posicaoInicial[0]), int.Parse(posicaoInicial[1])];
         robo.orientacaoRobo = char.Parse(posicaoInicial[2]);
     }
 
-    static char[] GerarSequencia()
+    static char[] GerarSequencia(string nome)
     {
         bool validacao = true;
         char[] sequenciaMovimento;
 
         do
         {
-            Console.Write("Informe a sequencia de movimento do robô: (Ex.: MMDEMMDEDM): ");
+            Console.Write($"Informe a sequencia de movimento do {nome} Robô: (Ex.: MMDEMMDEDM): ");
             sequenciaMovimento = Console.ReadLine()!.ToCharArray();
 
             foreach (char i in sequenciaMovimento)
@@ -82,7 +104,23 @@ internal class Program
                     validacao = false;
             }
         } while (validacao);
-        
+        Console.WriteLine();
+
         return sequenciaMovimento;
+    }
+
+    static void ExibirMenu()
+    {
+        Console.WriteLine("--------------------------------------");
+        Console.WriteLine("          Robô Tupiniquim I           ");
+        Console.WriteLine("--------------------------------------");
+        Console.WriteLine();
+    }
+    static bool JogarNovamente()
+    {
+        Console.WriteLine("\nDeseja jogar novamente? (S/N)");
+        string validacao = Console.ReadLine()!.ToUpper();
+
+        return validacao != "S";
     }
 }

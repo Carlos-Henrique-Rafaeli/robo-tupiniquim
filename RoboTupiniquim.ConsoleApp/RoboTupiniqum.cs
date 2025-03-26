@@ -2,9 +2,9 @@
 
 public class RoboTupiniquim
 {
-    public int[] posicaoRobo;
-    public char orientacaoRobo;
-    public int[] coordenadaMax;
+    public int[] posicaoRobo = [0, 0];
+    public char orientacaoRobo = 'N';
+    public int[] coordenadaMax = [5, 5];
     public int[] coordenadaMin = [0, 0];
 
     public bool ProcessarSequencia(char[] sequencia)
