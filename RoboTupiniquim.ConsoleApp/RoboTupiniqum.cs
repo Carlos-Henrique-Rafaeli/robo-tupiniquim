@@ -2,10 +2,12 @@
 
 public class RoboTupiniquim
 {
-    int[] posicaoRobo;
-    char orientacaoRobo;
+    public int[] posicaoRobo;
+    public char orientacaoRobo;
+    public int[] coordenadaMax;
+    public int[] coordenadaMin = [0, 0];
 
-    public void ProcessarSequencia(char[] sequencia)
+    public bool ProcessarSequencia(char[] sequencia)
     {
         foreach (char i in sequencia)
         {
@@ -22,41 +24,82 @@ public class RoboTupiniquim
                     break;
             }
         }
+
+        if (VerificarBorda())
+            return true;
+        else
+            return false;
     }
 
-    public void MoverRobo()
+    private bool VerificarBorda()
+    {
+        if (posicaoRobo[0] > coordenadaMax[0] || posicaoRobo[0] < coordenadaMin[0])
+            return false;
+
+        if (posicaoRobo[1] > coordenadaMax[1] || posicaoRobo[1] < coordenadaMin[1])
+            return false;
+
+        return true;
+    }
+
+    private void MoverRobo()
     {
         int index = VerificarIndex();
-        bool ehPositivo = VerificarOrientacao();
+        int verificacao = VerificarOrientacao();
 
-        if (ehPositivo)
+        if (verificacao == 1)
             posicaoRobo[index] += 1;
-        else
+        else if (verificacao == 0)
             posicaoRobo[index] -= 1;
     }
 
-    public void VirarRobo(char qualLadoVirar)
+    private void VirarRobo(char qualLadoVirar)
     {
-        if (qualLadoVirar == 'D' && orientacaoRobo == 'N')
-            orientacaoRobo = 'L';
-        else if (orientacaoRobo == 'L')
-            orientacaoRobo = 'S';
-        else if (orientacaoRobo == 'S')
-            orientacaoRobo = 'O';
-        else if (orientacaoRobo == 'O')
-            orientacaoRobo = 'N';
+        if (qualLadoVirar == 'D')
+        {
+            switch (orientacaoRobo)
+            {
+                case 'N':
+                    orientacaoRobo = 'L';
+                    break;
+                
+                case 'S':
+                    orientacaoRobo = 'O';
+                    break;
+                
+                case 'L':
+                    orientacaoRobo = 'S';
+                    break;
+                
+                case 'O':
+                    orientacaoRobo = 'N';
+                    break;
+            }
+        }
+        else if (qualLadoVirar == 'E')
+        {
+            switch (orientacaoRobo)
+            {
+                case 'N':
+                    orientacaoRobo = 'O';
+                    break;
 
-        if (qualLadoVirar == 'E' && orientacaoRobo == 'N')
-            orientacaoRobo = 'O';
-        else if (orientacaoRobo == 'O')
-            orientacaoRobo = 'S';
-        else if (orientacaoRobo == 'S')
-            orientacaoRobo = 'L';
-        else if (orientacaoRobo == 'L')
-            orientacaoRobo = 'N';
+                case 'S':
+                    orientacaoRobo = 'L';
+                    break;
+
+                case 'L':
+                    orientacaoRobo = 'N';
+                    break;
+
+                case 'O':
+                    orientacaoRobo = 'S';
+                    break;
+            }
+        }
     }
 
-    public int VerificarIndex()
+    private int VerificarIndex()
     {
         if (orientacaoRobo == 'N' || orientacaoRobo == 'S')
             return 1;
@@ -66,14 +109,13 @@ public class RoboTupiniquim
         return -1;
     }
 
-    public bool VerificarOrientacao()
+    private int VerificarOrientacao()
     {
         if (orientacaoRobo == 'N' || orientacaoRobo == 'L')
-            return true;
+            return 1;
         else if (orientacaoRobo == 'L' || orientacaoRobo == 'S')
-            return false;
+            return 0;
 
-        return false;
+        return -1;
     }
-
 }
