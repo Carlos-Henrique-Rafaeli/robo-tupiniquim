@@ -44,7 +44,7 @@ internal class Program
         string[] partesCoordenadas;
         while (true)
         {
-            Console.Write("Informe as coordenadas limites do projeto (Ex.: 5 5 ou 8 4): ");
+            Console.Write("Informe as coordenadas limites do projeto (Ex.: 5 5): ");
             partesCoordenadas = Console.ReadLine()!.Split();
 
             if (partesCoordenadas.Length != 2 || !int.TryParse(partesCoordenadas[0], out _) || !int.TryParse(partesCoordenadas[1], out _))
@@ -69,8 +69,8 @@ internal class Program
 
         while (true)
         {
-            Console.Write($"Informe as coordenadas do {nome} Robô e sua orientação: (Ex.: 1 3 N ou 3 4 S): ");
-            posicaoInicial = Console.ReadLine()!.Split();
+            Console.Write($"Informe as coordenadas do {nome} Robô e sua orientação: (Ex.: 1 3 N): ");
+            posicaoInicial = Console.ReadLine()!.ToUpper().Split();
 
             if (posicaoInicial.Length != 3 || !int.TryParse(posicaoInicial[0], out _) || !int.TryParse(posicaoInicial[1], out _))
                 Console.WriteLine("\nEntrada inválida!\n");
@@ -90,14 +90,14 @@ internal class Program
 
         do
         {
-            Console.Write($"Informe a sequencia de movimento do {nome} Robô: (Ex.: MMDEMMDEDM): ");
-            sequenciaMovimento = Console.ReadLine()!.ToCharArray();
+            Console.Write($"Informe a sequencia de movimento do {nome} Robô: (Ex.: MMDMMEMDE): ");
+            sequenciaMovimento = Console.ReadLine()!.ToUpper().ToCharArray();
 
             foreach (char i in sequenciaMovimento)
             {
                 if (!sequenciaValidada.Contains(i))
                 {
-                    Console.WriteLine("Sequência inválida!\nDigite ela novamente: ");
+                    Console.WriteLine("\nEntrada inválida!\n");
                     break;
                 }
                 else
@@ -111,11 +111,13 @@ internal class Program
 
     static void ExibirMenu()
     {
+        Console.Clear();
         Console.WriteLine("--------------------------------------");
         Console.WriteLine("          Robô Tupiniquim I           ");
         Console.WriteLine("--------------------------------------");
         Console.WriteLine();
     }
+
     static bool JogarNovamente()
     {
         Console.WriteLine("\nDeseja jogar novamente? (S/N)");

@@ -113,7 +113,7 @@ public class RoboTupiniquim
     {
         if (orientacaoRobo == 'N' || orientacaoRobo == 'L')
             return 1;
-        else if (orientacaoRobo == 'L' || orientacaoRobo == 'S')
+        else if (orientacaoRobo == 'O' || orientacaoRobo == 'S')
             return 0;
 
         return -1;
