@@ -6,7 +6,7 @@
 
 ## Introdução
 
-A **Agência Espacial Brasileira (AEB)** está planejando uma expedição a Marte e, como parte do projeto, enviará uma nave espacial **Tupiniquim I** equipada com um robô explorador. Esse robô será responsável por analisar a superfície do planeta vermelho, coletando informações através de sua movimentação em uma área delimitada.
+A **Agência Espacial Brasileira (AEB)** está planejando uma expedição a Marte e, como parte do projeto, enviará uma nave espacial **Tupiniquim I** equipada com um robô explorador.
 
 ## Sobre o Sistema
 
