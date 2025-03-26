@@ -2,6 +2,8 @@
 
 internal class Program
 {
+    static RoboTupiniquim robo1 = new RoboTupiniquim();
+
     static void Main(string[] args)
     {
         Console.Write("Informe as coordenadas limites do projeto (Ex.: 5 5 ou 8 4): ");
@@ -22,75 +24,7 @@ internal class Program
         Console.Write("Informe a sequencia de movimento do robô: (Ex.: 1 3 N ou 3 4 S): ");
         char[] sequenciaMovimento = Console.ReadLine()!.ToCharArray();
 
-
-        foreach (char i in sequenciaMovimento)
-        {
-            if (orientacaoRobo == 'N' && i == 'M')
-            {
-                posicaoRobo[1] += 1;
-                continue;
-            }
-            else if (i == 'D')
-            {
-                orientacaoRobo = 'L';
-                continue;
-            }
-            else if (i == 'E')
-            {
-                orientacaoRobo = 'O';
-                continue;
-            }
-
-            if (orientacaoRobo == 'S' && i == 'M')
-            {
-                posicaoRobo[1] -= 1;
-                continue;
-            }
-            else if (i == 'D')
-            {
-                orientacaoRobo = 'O';
-                continue;
-            }
-            else if (i == 'E')
-            {
-                orientacaoRobo = 'L';
-                continue;
-            }
-
-            if (orientacaoRobo == 'L' && i == 'M')
-            {
-                posicaoRobo[0] += 1;
-                continue;
-            }
-            else if (i == 'D')
-            {
-                orientacaoRobo = 'S';
-                continue;
-            }
-            else if (i == 'E')
-            {
-                orientacaoRobo = 'N';
-                continue;
-            }
-
-            if (orientacaoRobo == 'O' && i == 'M')
-            {
-                posicaoRobo[0] -= 1;
-                continue;
-            }
-            else if (i == 'D')
-            {
-                orientacaoRobo = 'N';
-                continue;
-            }
-            else if (i == 'E')
-            {
-                orientacaoRobo = 'S';
-                continue;
-            }
-        }
-
-
+        robo1.ProcessarSequencia(sequenciaMovimento);
 
         Console.WriteLine($"{posicaoRobo[0]} {posicaoRobo[1]} {orientacaoRobo}");
 
