@@ -2,7 +2,7 @@
 
 ## Demonstração
 
-![](https://i.imgur.com/4Q74Znu.gif)
+![](https://i.imgur.com/WbvOmk8.gif)
 
 ## Introdução
 
