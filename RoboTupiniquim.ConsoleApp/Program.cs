@@ -9,6 +9,9 @@ internal class Program
 
     static void Main(string[] args)
     {
+        roboTup1.nome = "Primeiro";
+        roboTup2.nome = "Segundo";
+
         while (true)
         {
             ExibirMenu();
@@ -22,21 +25,15 @@ internal class Program
     static void LancarRobosEmMarte(RoboTupiniquim robo1, RoboTupiniquim robo2)
     {
         GerarCoordenadaMaxima(robo1, robo2);
-        GerarCoordenadaRobo(robo1, "Primeiro");
-        GerarCoordenadaRobo(robo2, "Segundo");
-
-        char[] sequencia1 = GerarSequencia("Primeiro");
-        char[] sequencia2 = GerarSequencia("Segundo");
-
-        if (robo1.ProcessarSequencia(sequencia1))
-            Console.WriteLine($"Posição final do primeiro Robô: {robo1.posicaoRobo[0]} {robo1.posicaoRobo[1]} {robo1.orientacaoRobo}");
-        else
-            Console.WriteLine("A sequência do primeiro Robô é inválida!");
         
-        if (robo2.ProcessarSequencia(sequencia2))
-            Console.WriteLine($"Posição final do segundo Robô: {robo2.posicaoRobo[0]} {robo2.posicaoRobo[1]} {robo2.orientacaoRobo}");
-        else
-            Console.WriteLine("A sequência do segundo Robô é inválida!");
+        GerarCoordenadaRobo(robo1);
+        char[] sequencia1 = GerarSequencia(robo1);
+        
+        GerarCoordenadaRobo(robo2);
+        char[] sequencia2 = GerarSequencia(robo2);
+
+        ExibirPosicaoRobo(robo1, sequencia1);
+        ExibirPosicaoRobo(robo2, sequencia2);
     }
 
     static void GerarCoordenadaMaxima(RoboTupiniquim robo1, RoboTupiniquim robo2)
@@ -44,7 +41,7 @@ internal class Program
         string[] partesCoordenadas;
         while (true)
         {
-            Console.Write("Informe as coordenadas limites do projeto (Ex.: 5 5): ");
+            Console.Write("Informe as coordenadas limites: (Ex.: 5 5): ");
             partesCoordenadas = Console.ReadLine()!.Split();
 
             if (partesCoordenadas.Length != 2 || !int.TryParse(partesCoordenadas[0], out _) || !int.TryParse(partesCoordenadas[1], out _))
@@ -63,13 +60,13 @@ internal class Program
         robo2.coordenadaMax = coordenadasMax;
     }
 
-    static void GerarCoordenadaRobo(RoboTupiniquim robo, string nome)
+    static void GerarCoordenadaRobo(RoboTupiniquim robo)
     {
         string[] posicaoInicial;
 
         while (true)
         {
-            Console.Write($"Informe as coordenadas do {nome} Robô e sua orientação: (Ex.: 1 3 N): ");
+            Console.Write($"Informe as coordenadas do {robo.nome} Robô e sua orientação: (Ex.: 1 3 N): ");
             posicaoInicial = Console.ReadLine()!.ToUpper().Split();
 
             if (posicaoInicial.Length != 3 || !int.TryParse(posicaoInicial[0], out _) || !int.TryParse(posicaoInicial[1], out _))
@@ -83,14 +80,14 @@ internal class Program
         robo.orientacaoRobo = char.Parse(posicaoInicial[2]);
     }
 
-    static char[] GerarSequencia(string nome)
+    static char[] GerarSequencia(RoboTupiniquim robo)
     {
         bool validacao = true;
         char[] sequenciaMovimento;
 
         do
         {
-            Console.Write($"Informe a sequencia de movimento do {nome} Robô: (Ex.: MMDMMEMDE): ");
+            Console.Write($"Informe a sequência de movimento do {robo.nome} Robô: (Ex.: MMDMMEMDE): ");
             sequenciaMovimento = Console.ReadLine()!.ToUpper().ToCharArray();
 
             foreach (char i in sequenciaMovimento)
@@ -116,6 +113,14 @@ internal class Program
         Console.WriteLine("          Robô Tupiniquim I           ");
         Console.WriteLine("--------------------------------------");
         Console.WriteLine();
+    }
+
+    static void ExibirPosicaoRobo(RoboTupiniquim robo, char[] sequencia)
+    {
+        if (robo.ProcessarSequencia(sequencia))
+            Console.WriteLine($"Posição final do {robo.nome} Robô: {robo.posicaoRobo[0]} {robo.posicaoRobo[1]} {robo.orientacaoRobo}");
+        else
+            Console.WriteLine($"A sequência do {robo.nome} Robô é inválida!");
     }
 
     static bool JogarNovamente()

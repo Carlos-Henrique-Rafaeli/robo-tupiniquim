@@ -6,6 +6,7 @@ public class RoboTupiniquim
     public char orientacaoRobo = 'N';
     public int[] coordenadaMax = [5, 5];
     public int[] coordenadaMin = [0, 0];
+    public string nome = "";
 
     public bool ProcessarSequencia(char[] sequencia)
     {
@@ -25,10 +26,7 @@ public class RoboTupiniquim
             }
         }
 
-        if (VerificarBorda())
-            return true;
-        else
-            return false;
+        return VerificarBorda();
     }
 
     private bool VerificarBorda()
