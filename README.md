@@ -6,9 +6,15 @@
 
 ## Introdução
 
-A **Agência Espacial Brasileira (AEB)** está planejando uma expedição a Marte e, como parte do projeto, enviará uma nave espacial **Tupiniquim I** equipada com um robô explorador.
+Um jogo para simular um robô da **Agência Espacial Brasileira (AEB)** em solo do planeta Marte.
 
-## Sobre o Sistema
+## Funcionalidades
+
+- **Definição da Área de Exploração**: O sistema recebe as coordenadas do canto superior direito da área a ser explorada. O canto inferior esquerdo é fixo em (0,0).
+- **Entrada de Comandos**: Os comandos são enviados em duas partes: a posição inicial do robô e uma sequência de instruções para sua movimentação.
+- **Execução Sequencial**: Cada robô executa seus comandos de forma ordenada. O próximo robô só inicia suas ações após o anterior concluir sua exploração.
+
+### Sobre o Sistema
 
 A área de exploração é um **grid retangular**, e o robô pode se movimentar dentro dele seguindo coordenadas **X** e **Y**, além de uma orientação representada por uma das direções cardeais:
 
@@ -17,7 +23,7 @@ A área de exploração é um **grid retangular**, e o robô pode se movimentar 
 - **L** = Leste
 - **O** = Oeste
 
-## Movimentação
+### Movimentação
 
 O robô recebe comandos na forma de **strings**, contendo as letras:
 
